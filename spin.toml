@@ -1,0 +1,12 @@
+spin_manifest_version = "1"
+authors = ["Brian Hardock <brian.hardock@fermyon.com>"]
+description = "An example of Spin middleware"
+name = "endpoint"
+trigger = { type = "http", base = "/" }
+version = "0.1.0"
+
+[[component]]
+id = "endpoint"
+source = "composed.wasm"
+[component.trigger]
+route = "/..."
