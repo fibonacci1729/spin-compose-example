@@ -1,10 +1,10 @@
-use bindings::inbound_http::{InboundHttp, RequestResult, Response};
+use bindings::inbound_http::{InboundHttp, Request, Response};
 use std::str;
 
 struct Component;
 
 impl InboundHttp for Component {
-    fn handle_request(req: RequestResult) -> Response {
+    fn handle_request(req: Request) -> Response {
         // The content should be plain text
         let Some(content_type) = req
             .headers

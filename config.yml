@@ -1,7 +1,7 @@
-# wasm-tools compose -c config.yml -o composed.wasm middleware/target/wasm32-unknown-unknown/release/middleware.wasm
+# wasm-tools compose -c config.yml -o composed.wasm middleware/target/wasm32-wasi/release/middleware.wasm
 
 search-paths:
-  - service/target/wasm32-unknown-unknown/release
+  - service/target/wasm32-wasi/release
 
 instantiations:
   $input:

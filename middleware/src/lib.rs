@@ -1,6 +1,6 @@
 use bindings::{
     downstream,
-    inbound_http::{InboundHttp, RequestResult, Response},
+    inbound_http::{InboundHttp, Request, Response},
 };
 use flate2::{write::GzEncoder, Compression};
 use std::io::Write;
@@ -8,14 +8,14 @@ use std::io::Write;
 struct Component;
 
 impl InboundHttp for Component {
-    fn handle_request(req: RequestResult) -> Response {
+    fn handle_request(req: Request) -> Response {
         // Send the request to the downstream service
-        let mut response = downstream::handle_request(downstream::RequestParam {
-            headers: req.headers.iter().map(|(a, b)| (a.as_str(), b.as_str())).collect::<Vec<(&str, &str)>>().as_slice(),
-            params: req.params.iter().map(|(a, b)| (a.as_str(), b.as_str())).collect::<Vec<(&str, &str)>>().as_slice(),
+        let mut response = downstream::handle_request(&downstream::Request {
+            headers: req.headers,
+            params: req.params,
             method: downstream::Method::Get,
-            uri: &req.uri,
-            body: req.body.as_ref().map(|body| body.as_slice()),
+            uri: req.uri,
+            body: req.body,
         });
 
         // If the response is already encoded, leave it alone
